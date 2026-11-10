@@ -4,39 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ColorFly - Generador de paleta</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <header>
+    <header class="header">
         <h1 class="logo">ColorFly</h1>
-        <div id="controls">
-            <labels for="size">Tamaño</labels>
-            <select id="size">
+        <div class="controles">
+            <labels for="tamanio" class="etiqueta">Tamaño</labels>
+            <select id="tamanio" class="selector">
                 <option value="6">6 colores</option>
                 <option value="8">8 colores</option>
                 <option value="9">9 colores</option>
             </select>
-            <label for="format">Formato</label>
-            <select id="format">
+            <label for="formato" class="etiqueta">Formato</label>
+            <select id="formato" class="selector">
                 <option value="HSL">HSL</option>
                 <option value="HEX">HEX</option>
             </select>
-            <button id="generate" type="button">Generar paleta</button>
-            <button id="save" type="button">
+            <button id="generar" class="boton boton-primario" type="button">Generar paleta</button>
+            <button id="guardar" class="boton boton-secundario" type="button">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
                 Guardar
             </button>
         </div>
     </header>
-    <main>
-        <h2 class="sr-only" >Paleta de colores</h2>
-        <ul id="palette"></ul>   
-        <p id="toast"></p>
+    <main class="main">
+        <h2 class="solo-lectores" >Paleta de colores</h2>
+        <ul id="paleta" class="paleta"></ul>   
+        <p id="aviso" class="aviso" role="status" aria-live="polite"></p>
     </main>
-    <footer>
-        <h2 id="footer-title">Paletas guardadas</h2>
-        <ul id="saved"></ul>
-        <p class="footer-hint">Proyecto M1.Esteban Zanolli - Curso Fullstack + AI</p>
+    <footer class="footer">
+        <h2 id="pie-titulo">Paletas guardadas</h2>
+        <ul id="guardadas" class="guardadas"></ul>
+        <p class="info-sitio">Proyecto M1.Esteban Zanolli - Curso Fullstack + AI</p>
     </footer>
     <script src="./js/script.js"></script>
 </body>
