@@ -1,7 +1,9 @@
 /* ==========================================================================
 Variables y utilidades
 ========================================================================== */
+:root {
 
+}
 /* ==========================================================================
 Reset y configuración base
 ========================================================================== */
@@ -19,8 +21,8 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 .header {
@@ -29,11 +31,30 @@ body {
     align-items: center;
     justify-content: space-between;
 }
-.controls {
+.controles {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 0.75rem;
+}
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.boton svg {
+    width: 1.125rem;
+    height:1.125rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.main {
+    position: relative;
+    display: grid;    
 }
 
 /* ==========================================================================
@@ -59,7 +80,7 @@ Utilidades y helpers
 /* ==========================================================================
 Media queries (responsive)
 ========================================================================== */
-.sr-only {
+.solo-lectores {
     position: absolute;
     width: 1px;
     height: 1px;
