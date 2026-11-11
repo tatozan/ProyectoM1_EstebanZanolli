@@ -2,8 +2,18 @@
 Variables y utilidades
 ========================================================================== */
 :root {
-
+   --fondo: #f4f7fc;
+   --superficie: #ffffff;
+   --texto: #1f2a44;
+   --texto-suave: #5b6785;
+   --borde: #dbe3f1;
+   --primario: #2f6fd6;
+   --primario-hover: #2459b0;
+   --exito: #2bb7a3;
+   --fuente: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+   --fuente-codigo: ui-monospace, "Cascadia Mono", COnsolas, monospace;
 }
+
 /* ==========================================================================
 Reset y configuración base
 ========================================================================== */
@@ -23,14 +33,31 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    font-family: var(--fuente);
+    color: var(--texto);
+    background: var(--fondo);
 }
 
+
+/*-------------header-------------*/
 .header {
+    height: 4rem;
+    padding: 0 1.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borde);
 }
+
+.logo {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primario);
+}
+
 .controles {
     display: flex;
     flex-direction: row;
@@ -38,11 +65,36 @@ body {
     gap: 0.75rem;
 }
 
+.etiqueta {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+}
+
+.selector {
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    font: 700 0.9375rem var(--fuente);
+    color: var(--texto);
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: 0.625rem;
+}
+
 .boton {
+    height: 2.5rem;
+    padding: 0 1.25rem;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    font: 700 0.9375rem var(--fuente);
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color .2s, transform .1s;
 }
+
+.boton:active { transform: scale(.97); }
 
 .boton svg {
     width: 1.125rem;
@@ -52,6 +104,27 @@ body {
     stroke-width: 2;
 }
 
+.boton-primario {
+    color: var(-superficie);
+    background: var(--primario);
+}
+
+.boton-primario:hover {
+    background: var(--primario-hover);
+}
+
+.boton-secundario {
+    color: var(--texto);
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+}
+
+.boton-secundario:hover {
+    background: var(--borde);
+}
+
+
+/*-------------header-------------*/
 .main {
     position: relative;
     display: grid;    
@@ -64,6 +137,30 @@ body {
     display: grid;
 }
 
+
+/*-------------footer-------------*/
+.footer {
+    min-height: 3.5rem;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--superficie);
+    border-top: 1px solid var(--borde);
+}
+
+.footer-titulo {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+}
+
+.info-sitio {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--texto-suave);
+}
 
 /* ==========================================================================
 Tipografía
