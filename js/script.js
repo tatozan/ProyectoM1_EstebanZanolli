@@ -128,7 +128,12 @@ function copiarTexto(texto) {
 
 function mostrarAviso(mensaje) {
     elementoAviso.textContent = mensaje;
-    
+    elementoAviso.classList.add('visible')
+
+    clearTimeout(temporizadorAviso);
+    temporizadorAviso = setTimeOut(function () {
+        elementoAviso.classList.remove('visible');
+    }, 1800);
 
 }
 /*============ DIBUJAR EN PANTALLA ============*/
@@ -195,7 +200,5 @@ function colorTextoPara(color) {
     } else {
       return '#111111';
     }
-
-
 
 }
