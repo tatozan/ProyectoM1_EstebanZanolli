@@ -202,3 +202,5 @@ function colorTextoPara(color) {
     }
 
 }
+
+generarPaleta();
