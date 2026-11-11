@@ -6,7 +6,7 @@ const listaPaleta = document.querySelector('#paleta');
 const listaGuardadas = document.querySelector('#guardadas');
 const elementoAviso = document.querySelector('#aviso');
 
-const CANDADO_CERRADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><patrue"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0h d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const CANDADO_CERRADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
 const CANDADO_ABIERTO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>';
 
 let colores = [];
@@ -14,7 +14,7 @@ let temporizadorAviso;
 
 /*------------ Eventos ------------*/
 botonGenerar.addEventListener('click', generarPaleta);
-botonGuardar.addEventListener('click', guardarPaleta);
+//botonGuardar.addEventListener('click', guardarPaleta);
 selectorTamanio.addEventListener('change', cambiarTamanio);
 selectorFormato.addEventListener('change', dibujarPaleta);
 
@@ -101,10 +101,10 @@ function hslARgb(h, s, l) {
   };
 }
 
-function numeroAHex(numero){
-    let texto = numero.ToString(16);
+function numeroAHex(numero) {
+    let texto = numero.toString(16);
 	if (texto.length ===1) {
-		texto = `0$texto}`
+		texto = `0${texto}`
 	}
 	return texto.toUpperCase();
 }
@@ -122,7 +122,7 @@ function alternarBloqueo(indice) {
 }
 
 function copiarTexto(texto) {
-    navigator.clipboard.writeTexto(texto);
+    navigator.clipboard.writeText(texto);
     mostrarAviso(`Copiado ${texto}`);
 }
 
@@ -131,7 +131,7 @@ function mostrarAviso(mensaje) {
     elementoAviso.classList.add('visible')
 
     clearTimeout(temporizadorAviso);
-    temporizadorAviso = setTimeOut(function () {
+    temporizadorAviso = setTimeout(function () {
         elementoAviso.classList.remove('visible');
     }, 1800);
 
@@ -140,7 +140,7 @@ function mostrarAviso(mensaje) {
 
 function dibujarPaleta(){
     listaPaleta.innerHTML = '';
-    listaPaleta.setAtributte = ('data-tamanio', colores.length);
+    listaPaleta.setAttribute('data-tamanio', colores.length);
 
     if (selectorFormato.value === 'hsl') {
         listaPaleta.classList.add('formato-hsl');
@@ -160,16 +160,16 @@ function dibujarPaleta(){
         candado.className = 'candado';
         candado.type = 'button';
         if (color.bloqueado) {
-            candado.innerHtml = CANDADO_CERRADO;
+            candado.innerHTML = CANDADO_CERRADO;
         } else {
-            candado.innerHtml = CANDADO_ABIERTO;
+            candado.innerHTML = CANDADO_ABIERTO;
         }
         candado.addEventListener('click', function() {
             alternarBloqueo(indice);
         })
 
         const codigo = document.createElement('button');
-        codigo.clasName = 'codigo';
+        codigo.className = 'codigo';
         codigo.type = 'button';
         codigo.textContent = texto;
         codigo.addEventListener('click', function(){

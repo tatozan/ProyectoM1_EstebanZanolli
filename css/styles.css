@@ -105,7 +105,7 @@ body {
 }
 
 .boton-primario {
-    color: var(-superficie);
+    color: var(--superficie);
     background: var(--primario);
 }
 
@@ -132,7 +132,7 @@ body {
     padding: 0.75rem 1.125rem;
     font-size: 0.9375rem;
     font-weight: 700;
-    background: var(--supperficie);
+    background: var(--superficie);
     color: var(--texto);
     border-left: 0.375rem solid var(--exito);
     border-radius: 0.875rem;
@@ -173,7 +173,7 @@ body {
 .franja {
     display: flex;
     flex-direction: column;
-    align-items: dcenter;
+    align-items: center;
     justify-content: flex-end;
     gap: 0.75rem;
     padding-bottom: 3rem;
@@ -224,7 +224,8 @@ body {
     stroke-width: 2;
     stroke-linecap: round;
 }
-----------footer-------------*/
+
+/*----------footer-------------*/
 .footer {
     min-height: 3.5rem;
     padding: 0.5rem 1.5rem;
