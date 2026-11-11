@@ -10,6 +10,7 @@ const CANDADO_CERRADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5"
 const CANDADO_ABIERTO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>';
 
 let colores = [];
+
 /*------------ Eventos ------------*/
 botonGenerar.addEventListener('click', generarPaleta);
 botonGuardar.addEventListener('click', guardarPaleta);
@@ -53,7 +54,9 @@ function crearColor(h, s, l) {
         l: l,
         r: rgb.r,
         g: rgb.g,
-        b: rgb.b
+        b: rgb.b,
+        hex: `#${numeroAHex(rgb.r)}${numeroAHex(rgb.g)}${numeroAHex(rgb.b)}`,
+		bloqueado: false
     };
 }
 
@@ -95,4 +98,59 @@ function hslARgb(h, s, l) {
     g: Math.round((verde + m) * 255),
     b: Math.round((azul + m) * 255)
   };
+}
+
+function numeroAHex(numero){
+    let texto = numero.ToString(16);
+	if(texto.length ===1){
+		texto = `0$texto}`
+	}
+	return texto.toUpperCase();
+}
+
+/*============ DIBUJAR EN PANTALLA ============*/
+
+function dibujarPaleta(){
+    listaPaleta.innerHTML = '';
+    listaPaleta.setAtributte = ('data-tamanio', colores.length);
+
+    if(selectorFormato.value === 'hsl'){
+        listaPaleta.classList.add('formato-hsl');
+    } else {
+        listaPaleta.classList.remove('formato-hsl');
+    }
+
+    colores.forEach(function(color, indice) {
+        const texto = formatear(color);
+
+        const franja = document.createElement('li');
+        franja.className = 'franja';
+        franja.style.backgroundColor = color.hex;
+        franja.style.color = colorTextoPara(color);
+
+        const candado = document.createElement('button');
+        candado.className = 'candado';
+        candado.type = 'button';
+        if(color.bloqueado) {
+            candado.innerHtml = CANDADO_CERRADO;
+        } else {
+            candado.innerHtml = CANDADO_ABIERTO;
+        }
+        candado.addEventListener('click', function(){
+            alternarBloqueo(indice);
+        })
+
+        const codigo = document.createElement('button');
+        codigo.clasName = 'codigo';
+        codigo.type = 'button';
+        codigo.textContent = texto;
+        codigo.addEventListener('click', function(){
+            copiarTexto(texto);
+        });
+
+        franja.appendChild(candado);
+        franja.appendChild(codigo);
+        listaPaleta.appendChild(franja);
+    });
+
 }
