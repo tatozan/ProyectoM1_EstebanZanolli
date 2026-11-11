@@ -43,6 +43,15 @@ function colorAleatorio() {
     return crearColor(h, s, l);
 }
 
+function canalRelativo(valor) {
+  const c = valor / 255;
+  if (c <= 0.03928) {
+    return c / 12.92;
+  } else {
+    return Math.pow((c + 0.055) / 1.055, 2.4);
+  }
+}
+
 function numeroAleatorio(minimo, maximo) {
     return Math.floor(Math.random() * ((maximo - minimo) + 1)) + minimo;
 }
@@ -136,6 +145,23 @@ function mostrarAviso(mensaje) {
     }, 1800);
 
 }
+
+function cambiarTamanio() {
+    const cantidad = Number(selectorTamanio.value);
+    const nuevos = [];
+
+    for (let i = 0; i < cantidad; i++) {
+        if (i < colores.length) {
+            nuevos.push(colores[i]);
+        } else {
+            nuevos.push(colorAleatorio());
+        }
+    }
+
+    colores = nuevos;
+    dibujarPaleta();
+}
+
 /*============ DIBUJAR EN PANTALLA ============*/
 
 function dibujarPaleta(){
