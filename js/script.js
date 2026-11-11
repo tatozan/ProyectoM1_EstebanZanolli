@@ -10,6 +10,7 @@ const CANDADO_CERRADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5"
 const CANDADO_ABIERTO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>';
 
 let colores = [];
+let temporizadorAviso;
 
 /*------------ Eventos ------------*/
 botonGenerar.addEventListener('click', generarPaleta);
@@ -21,8 +22,8 @@ function generarPaleta() {
     const cantidad = Number(selectorTamanio.value);
     const nuevos = [];
 
-    for(let i = 0; i < cantidad; i++) {
-        if(i < colores.length && colores[i].bloqueado) {
+    for (let i = 0; i < cantidad; i++) {
+        if (i < colores.length && colores[i].bloqueado) {
             nuevos.push(colores[i]);
         } else {
             nuevos.push(colorAleatorio());
@@ -102,26 +103,48 @@ function hslARgb(h, s, l) {
 
 function numeroAHex(numero){
     let texto = numero.ToString(16);
-	if(texto.length ===1){
+	if (texto.length ===1) {
 		texto = `0$texto}`
 	}
 	return texto.toUpperCase();
 }
 
+function alternarBloqueo(indice) {
+    if (colores[indice].bloqueado) {
+        colores[indice].bloqueado = false;
+        dibujarPaleta();
+        mostrarAviso('Color desbloqueado');
+    } else {
+        colores[indice].bloqueado = true;
+        dibujarPaleta();
+        mostrarAviso('Color bloqueado');
+    }
+}
+
+function copiarTexto(texto) {
+    navigator.clipboard.writeTexto(texto);
+    mostrarAviso(`Copiado ${texto}`);
+}
+
+function mostrarAviso(mensaje) {
+    elementoAviso.textContent = mensaje;
+    
+
+}
 /*============ DIBUJAR EN PANTALLA ============*/
 
 function dibujarPaleta(){
     listaPaleta.innerHTML = '';
     listaPaleta.setAtributte = ('data-tamanio', colores.length);
 
-    if(selectorFormato.value === 'hsl'){
+    if (selectorFormato.value === 'hsl') {
         listaPaleta.classList.add('formato-hsl');
     } else {
         listaPaleta.classList.remove('formato-hsl');
     }
 
     colores.forEach(function(color, indice) {
-        const texto = formatear(color);
+        const texto = formatearColor(color);
 
         const franja = document.createElement('li');
         franja.className = 'franja';
@@ -131,12 +154,12 @@ function dibujarPaleta(){
         const candado = document.createElement('button');
         candado.className = 'candado';
         candado.type = 'button';
-        if(color.bloqueado) {
+        if (color.bloqueado) {
             candado.innerHtml = CANDADO_CERRADO;
         } else {
             candado.innerHtml = CANDADO_ABIERTO;
         }
-        candado.addEventListener('click', function(){
+        candado.addEventListener('click', function() {
             alternarBloqueo(indice);
         })
 
@@ -152,5 +175,27 @@ function dibujarPaleta(){
         franja.appendChild(codigo);
         listaPaleta.appendChild(franja);
     });
+}
+
+function formatearColor(color) {
+    if (selectorFormato.value === 'hsl') {
+        return `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
+    } else {
+        return color.hex;
+    }
+}
+
+function colorTextoPara(color) {
+    const luz = 0.2126 * canalRelativo(color.r) + 0.7152 * canalRelativo(color.g) + 0.0722 * canalRelativo(color.b);
+    const contrasteBlanco = 1.05 / (luz + 0.05);
+    const contrasteOscuro = (luz + 0.05) / 0.05;
+
+    if (contrasteBlanco >= contrasteOscuro) {
+      return '#FFFFFF';
+    } else {
+      return '#111111';
+    }
+
+
 
 }
