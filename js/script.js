@@ -27,8 +27,72 @@ function generarPaleta() {
             nuevos.push(colorAleatorio());
         }
     }
+
+    colores = nuevos;
+    dibujarPaleta();
 }
 
-colores = nuevos;
-dibujarPaleta();
+function colorAleatorio() {
+    const h = numeroAleatorio(0, 360);
+    //Saturation asegura colores con intensidad y vivacidad sin llegar a ser neones molestos.
+    const s = numeroAleatorio(45, 85);
+    //Lightness filtra colores demasiado oscuros (cercanos al negro) o demasiado claros (cercanos al blanco).
+    const l = numeroAleatorio(35, 75);
+    return crearColor(h, s, l);
+}
 
+function numeroAleatorio(minimo, maximo) {
+    return Math.floor(Math.random() * ((maximo - minimo) + 1)) + minimo;
+}
+
+function crearColor(h, s, l) {
+    const rgb = hslARgb(h, s, l);
+    return {
+        h: h,
+        s: s,
+        l: l,
+        r: rgb.r,
+        g: rgb.g,
+        b: rgb.b
+    };
+}
+
+function hslARgb(h, s, l) {
+  const saturacion = s / 100;
+  const luminosidad = l / 100;
+
+  const c = (1 - Math.abs(2 * luminosidad - 1)) * saturacion;
+  const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  const m = luminosidad - c / 2;
+
+  let rojo = 0;
+  let verde = 0;
+  let azul = 0;
+
+  // Según en qué parte de la rueda de colores esté el tono (h)
+  if (h < 60) {
+    rojo = c; 
+    verde = x;
+  } else if (h < 120) {
+    rojo = x; 
+    verde = c;
+  } else if (h < 180) {
+    verde = c; 
+    azul = x;
+  } else if (h < 240) {
+    verde = x; 
+    azul = c;
+  } else if (h < 300) {
+    rojo = x; 
+    azul = c;
+  } else {
+    rojo = c; 
+    azul = x;
+  }
+
+  return {
+    r: Math.round((rojo + m) * 255),
+    g: Math.round((verde + m) * 255),
+    b: Math.round((azul + m) * 255)
+  };
+}
