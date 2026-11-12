@@ -1,22 +1,26 @@
 /* ==========================================================================
-Variables y utilidades
-========================================================================== */
+   Variables y utilidades
+   ========================================================================== */
+
 :root {
-   --fondo: #f4f7fc;
-   --superficie: #ffffff;
-   --texto: #1f2a44;
-   --texto-suave: #5b6785;
-   --borde: #dbe3f1;
-   --primario: #2f6fd6;
-   --primario-hover: #2459b0;
-   --exito: #2bb7a3;
-   --fuente: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
-   --fuente-codigo: ui-monospace, "Cascadia Mono", COnsolas, monospace;
+    /* Colores */
+    --fondo: #f4f7fc;
+    --superficie: #ffffff;
+    --texto: #1f2a44;
+    --texto-suave: #5b6785;
+    --borde: #dbe3f1;
+    --primario: #2f6fd6;
+    --primario-hover: #2459b0;
+    --exito: #2bb7a3;
+
+    /* Tipografía */
+    --fuente: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --fuente-codigo: ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
 
 /* ==========================================================================
-Reset y configuración base
-========================================================================== */
+   Reset y configuración base
+   ========================================================================== */
 
 * {
     margin: 0;
@@ -29,10 +33,7 @@ html {
 }
 
 body {
-    margin: 0;
     min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
     font-family: var(--fuente);
     color: var(--texto);
     background: var(--fondo);
@@ -43,11 +44,38 @@ body {
     outline-offset: 2px;
 }
 
-.franja button:focus-visible {
-    outline-color: currentColor;
+/* ==========================================================================
+   Tipografía
+   ========================================================================== */
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primario);
 }
 
-/*-------------header-------------*/
+.etiqueta,
+.footer-titulo {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+}
+
+.info-sitio {
+    font-size: 0.8125rem;
+    color: var(--texto-suave);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+/* Esqueleto de la página: encabezado | principal | pie */
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
 .header {
     height: 4rem;
     padding: 0 1.5rem;
@@ -59,13 +87,6 @@ body {
     border-bottom: 1px solid var(--borde);
 }
 
-.logo {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primario);
-}
-
 .controles {
     display: flex;
     flex-direction: row;
@@ -73,12 +94,45 @@ body {
     gap: 0.75rem;
 }
 
-.etiqueta {
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--texto-suave);
+/* position: relative para que .aviso (absolute) se ubique dentro del main */
+.main {
+    position: relative;
+    display: grid;
 }
 
+/* Franja de colores: una columna por color, según el tamaño elegido */
+.paleta {
+    list-style: none;
+    display: grid;
+}
+
+.paleta[data-tamanio="6"] {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.paleta[data-tamanio="8"] {
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.paleta[data-tamanio="9"] {
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.footer {
+    min-height: 3.5rem;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--superficie);
+    border-top: 1px solid var(--borde);
+}
+
+/* ==========================================================================
+   Componentes
+   ========================================================================== */
+
+/* Selectores del encabezado */
 .selector {
     height: 2.5rem;
     padding: 0 0.75rem;
@@ -89,6 +143,7 @@ body {
     border-radius: 0.625rem;
 }
 
+/* Botones */
 .boton {
     height: 2.5rem;
     padding: 0 1.25rem;
@@ -99,14 +154,16 @@ body {
     border: 0;
     border-radius: 999px;
     cursor: pointer;
-    transition: background-color .2s, transform .1s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-.boton:active { transform: scale(.97); }
+.boton:active {
+    transform: scale(0.97);
+}
 
 .boton svg {
     width: 1.125rem;
-    height:1.125rem;
+    height: 1.125rem;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
@@ -131,53 +188,7 @@ body {
     background: var(--borde);
 }
 
-.aviso {
-    position: absolute;
-    top: 1.25rem;
-    left: 50%;
-    transform: translate(-50%, -0.75rem);
-    margin: 0;
-    padding: 0.75rem 1.125rem;
-    font-size: 0.9375rem;
-    font-weight: 700;
-    background: var(--superficie);
-    color: var(--texto);
-    border-left: 0.375rem solid var(--exito);
-    border-radius: 0.875rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .25s, transform .25s;
-}
-
-.aviso.visible {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-/*------------- Main -------------*/
-.main {
-    position: relative;
-    display: grid;    
-}
-
-.paleta {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-}
-
-.paleta[data-tamanio="6"] {
-    grid-template-columns: repeat(6, 1fr);
-}
-
-.paleta[data-tamanio="8"] {
-    grid-template-columns: repeat(8, 1fr);
-}
-
-.paleta[data-tamanio="9"] {
-    grid-template-columns: repeat(9, 1fr);
-}
-
+/* Franja de color: candado y código apilados al fondo */
 .franja {
     display: flex;
     flex-direction: column;
@@ -185,7 +196,7 @@ body {
     justify-content: flex-end;
     gap: 0.75rem;
     padding-bottom: 3rem;
-    transition: background-color .4s;
+    transition: background-color 0.4s;
 }
 
 .franja button {
@@ -196,20 +207,9 @@ body {
     border-radius: 0.625rem;
 }
 
-.codigo {
-    font: 800 1.25rem var(--fuente-codigo);
-    padding: 0.5rem 0.75rem;
-    max-width: 100%;
-    text-align: center;
-    overflow-wrap: anywhere;
-}
-
-.paleta.formato-hsl .codigo {
-    font-size: 0.875rem;
-}
-
-.codigo:hover {
-    background: rgba(127, 127, 127, .25);
+/* El texto de cada franja cambia entre blanco y negro: el aro de foco usa ese mismo color */
+.franja button:focus-visible {
+    outline-color: currentColor;
 }
 
 .candado {
@@ -220,8 +220,8 @@ body {
     transition: background 0.25s ease;
 }
 
-.candado:hover { 
-    background: rgba(127, 127, 127, .25); 
+.candado:hover {
+    background: rgba(127, 127, 127, 0.25);
 }
 
 .candado svg {
@@ -233,28 +233,56 @@ body {
     stroke-linecap: round;
 }
 
-/*----------footer-------------*/
-.footer {
-    min-height: 3.5rem;
-    padding: 0.5rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--superficie);
-    border-top: 1px solid var(--borde);
+.codigo {
+    max-width: 100%;
+    padding: 0.5rem 0.75rem;
+    font: 800 1.25rem var(--fuente-codigo);
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
+.codigo:hover {
+    background: rgba(127, 127, 127, 0.25);
+}
+
+/* El código HSL es más largo que el HEX: letra más chica para que entre en la franja */
+.paleta.formato-hsl .codigo {
+    font-size: 0.875rem;
+}
+
+/* Aviso (toast) */
+.aviso {
+    position: absolute;
+    top: 1.25rem;
+    left: 50%;
+    transform: translate(-50%, -0.75rem);
+    padding: 0.75rem 1.125rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--texto);
+    background: var(--superficie);
+    border-left: 0.375rem solid var(--exito);
+    border-radius: 0.875rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.aviso.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* Paletas guardadas (footer) */
 .guardadas {
     list-style: none;
-    margin: 0 auto 0 0;
-    padding: 0;
     display: flex;
     gap: 0.625rem;
+    margin-right: auto; /* empuja .info-sitio hacia la derecha */
 }
 
 .guardadas button {
     display: flex;
-    padding: 0;
     border: 0;
     cursor: pointer;
     border-radius: 0.375rem;
@@ -267,42 +295,11 @@ body {
     display: block;
 }
 
-.footer-titulo {
-    margin: 0;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--texto-suave);
-}
-
-.info-sitio {
-    margin: 0;
-    font-size: 0.8125rem;
-    color: var(--texto-suave);
-}
-
 /* ==========================================================================
-Tipografía
-========================================================================== */
+   Utilidades y helpers
+   ========================================================================== */
 
-/* ==========================================================================
-Layout
-========================================================================== */
-
-/* ==========================================================================
-Componentes
-========================================================================== */
-
-/* ==========================================================================
-Páginas específicas
-========================================================================== */
-
-/* ==========================================================================
-Utilidades y helpers
-========================================================================== */
-
-/* ==========================================================================
-Media queries (responsive)
-========================================================================== */
+/* Oculta el elemento a la vista pero lo deja disponible para lectores de pantalla */
 .solo-lectores {
     position: absolute;
     width: 1px;
@@ -312,12 +309,14 @@ Media queries (responsive)
     white-space: nowrap;
 }
 
+/* ==========================================================================
+   Media queries
+   ========================================================================== */
+
+/* Respeta a quien pidió reducir el movimiento en su sistema.
+   !important a propósito: tiene que ganar sobre cualquier transición declarada arriba */
 @media (prefers-reduced-motion: reduce) {
     * {
         transition: none !important;
     }
 }
-/* Header */
-
-
-
