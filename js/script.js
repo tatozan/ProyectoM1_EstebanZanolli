@@ -8,6 +8,8 @@ const elementoAviso = document.querySelector('#aviso');
 
 const CANDADO_CERRADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
 const CANDADO_ABIERTO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>';
+const CLAVE_ALMACENAMIENTO = 'colorfly-paletas'
+const MAX_GUARDADAS = 6;
 
 let colores = [];
 let temporizadorAviso;
@@ -17,6 +19,36 @@ botonGenerar.addEventListener('click', generarPaleta);
 //botonGuardar.addEventListener('click', guardarPaleta);
 selectorTamanio.addEventListener('change', cambiarTamanio);
 selectorFormato.addEventListener('change', dibujarPaleta);
+
+function cargarGuardadas() {
+    const textoGuardado = localStorage.getItem(CLAVE_ALMACENAMIENTO);
+
+    if (textoGuardado === null) {
+        return [];
+    } else {
+        return JSON.parse(textoGuardado);
+    }
+}
+
+function guardarPaleta() {
+    const guardadas = cargarGuardadas();
+
+    const paletaNueva = [];
+    colores.forEach(function (color) {
+        paletaNueva.push({ h: color.h, s: color.s, l: color.l});
+    });
+
+    guardadas.unshift(paletaNueva);
+    if (guardadas.length > MAX_GUARDADAS) {
+        guardadas.pop();
+    }
+
+    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(guardadas));
+    mostrarAviso('Paleta guardada');
+}
+
+
+
 
 function generarPaleta() {
     const cantidad = Number(selectorTamanio.value);
