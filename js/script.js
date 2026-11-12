@@ -44,6 +44,7 @@ function guardarPaleta() {
     }
 
     localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(guardadas));
+    dibujarGuardadas();
     mostrarAviso('Paleta guardada');
 }
 
@@ -63,10 +64,25 @@ function dibujarGuardadas() {
             boton.appendChild(muestra);
         });
 
+        boton.addEventListener('click', function () {
+            cargarPaleta(paleta);
+        });
+        
         item.appendChild(boton);
         listaGuardadas.appendChild(item);
     });
 
+}
+
+function cargarPaleta(paletaGuardada) {
+    selectorTamanio.value = paletaGuardada.length;
+    
+    colores = [];
+    paletaGuardada.forEach(function(c) {
+        colores.push(crearColor(c.h, c.s,c.l));
+    });
+
+    dibujarPaleta();
 }
 
 function generarPaleta() {
