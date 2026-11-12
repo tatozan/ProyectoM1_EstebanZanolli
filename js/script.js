@@ -16,7 +16,7 @@ let temporizadorAviso;
 
 /*------------ Eventos ------------*/
 botonGenerar.addEventListener('click', generarPaleta);
-//botonGuardar.addEventListener('click', guardarPaleta);
+botonGuardar.addEventListener('click', guardarPaleta);
 selectorTamanio.addEventListener('change', cambiarTamanio);
 selectorFormato.addEventListener('change', dibujarPaleta);
 
@@ -47,8 +47,27 @@ function guardarPaleta() {
     mostrarAviso('Paleta guardada');
 }
 
+function dibujarGuardadas() {
+    listaGuardadas.innerHTML = '';
+    const guardadas = cargarGuardadas();
 
+    guardadas.forEach(function (paleta, indice) {
+        const item = document.createElement('li');
+        
+        const boton = document.createElement('button');
+        boton.type = 'button';
 
+        paleta.forEach(function (c) {
+            const muestra = document.createElement('span');
+            muestra.style.backgroundColor = crearColor(c.h, c.s, c.l).hex;
+            boton.appendChild(muestra);
+        });
+
+        item.appendChild(boton);
+        listaGuardadas.appendChild(item);
+    });
+
+}
 
 function generarPaleta() {
     const cantidad = Number(selectorTamanio.value);
@@ -65,6 +84,7 @@ function generarPaleta() {
     colores = nuevos;
     dibujarPaleta();
 }
+
 
 function colorAleatorio() {
     const h = numeroAleatorio(0, 360);
@@ -262,3 +282,4 @@ function colorTextoPara(color) {
 }
 
 generarPaleta();
+dibujarGuardadas();
