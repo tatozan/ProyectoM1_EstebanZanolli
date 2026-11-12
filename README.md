@@ -57,9 +57,9 @@ Abrí `index.html` en el navegador (doble clic o con Live Server de VS Code).
 
 ## 🚀 Cómo desplegarlo en GitHub Pages
 
-1. Subí los cambios: `git add .`, `git commit -m "mensaje"`, `git push origin main`.
+1. Subí los cambios: `git add .`, `git commit -m "mensaje"`, `git push origin master`.
 2. En GitHub: **Settings → Pages**.
-3. En **Source** elegí `Deploy from a branch`, rama `main` y carpeta `/ (root)`.
+3. En **Source** elegí `Deploy from a branch`, rama `master` y carpeta `/ (root)`.
 4. Guardá y esperá un par de minutos.
 
 ## 🗂️ Estructura
