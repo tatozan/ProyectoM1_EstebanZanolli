@@ -38,6 +38,14 @@ body {
     background: var(--fondo);
 }
 
+:focus-visible {
+    outline: 3px solid var(--primario);
+    outline-offset: 2px;
+}
+
+.franja button:focus-visible {
+    outline-color: currentColor;
+}
 
 /*-------------header-------------*/
 .header {
@@ -304,7 +312,11 @@ Media queries (responsive)
     white-space: nowrap;
 }
 
-
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
 /* Header */
 
 

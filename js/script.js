@@ -57,6 +57,7 @@ function dibujarGuardadas() {
         
         const boton = document.createElement('button');
         boton.type = 'button';
+        boton.setAttribute('aria-label', `Cargar paleta guardada ${indice + 1}`);
 
         paleta.forEach(function (c) {
             const muestra = document.createElement('span');
@@ -67,7 +68,7 @@ function dibujarGuardadas() {
         boton.addEventListener('click', function () {
             cargarPaleta(paleta);
         });
-        
+
         item.appendChild(boton);
         listaGuardadas.appendChild(item);
     });
@@ -255,8 +256,10 @@ function dibujarPaleta(){
         candado.type = 'button';
         if (color.bloqueado) {
             candado.innerHTML = CANDADO_CERRADO;
+            candado.setAttribute('aria-label', `Desbloquear color ${texto}`);
         } else {
             candado.innerHTML = CANDADO_ABIERTO;
+            candado.setAttribute('aria-label', `Bloquear color ${texto}`);
         }
         candado.addEventListener('click', function() {
             alternarBloqueo(indice);
@@ -266,6 +269,7 @@ function dibujarPaleta(){
         codigo.className = 'codigo';
         codigo.type = 'button';
         codigo.textContent = texto;
+        codigo.setAttribute('aria-label', `Copiar ${texto}`);
         codigo.addEventListener('click', function(){
             copiarTexto(texto);
         });
@@ -292,7 +296,7 @@ function colorTextoPara(color) {
     if (contrasteBlanco >= contrasteOscuro) {
       return '#FFFFFF';
     } else {
-      return '#111111';
+      return '#000000';
     }
 
 }
