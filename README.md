@@ -76,7 +76,11 @@ ProyectoM1_EstebanZanolli/
 
 ## 🤖 Uso de IA
 
-Usé IA como apoyo durante el proyecto. Los prompts, resultados y capturas están en la carpeta [`IA/`](IA/).
+La inteligencia artificial me ayudó a generar este proyecto de diversas maneras:
+- **Asistencia en el código y accesibilidad:** Me guio para implementar mejoras en accesibilidad (foco visible, etiquetas descriptivas, contraste WCAG y soporte para reducir movimiento).
+- **Reorganización del código:** Me asistió en el reordenamiento de las funciones dentro del archivo JavaScript y de las clases de estilo en styles.css para mantener ambos archivos prolijos y legibles.
+- Los prompts, resultados y capturas detalladas de este proceso se encuentran en la carpeta [`IA/`](IA/)
+
 
 ## 👤 Autor
 
